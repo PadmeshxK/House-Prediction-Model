@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="icon" type="image/x-icon" href="../static/images/home_flaticon.png">
+</head>
+<body>
+    <div class="loader">
+        <img src="../static/images/1_e_Loq49BI4WmN7o9ItTADg.gif" alt="">
+    </div>
+    <nav class="navigation_bar">
+        <div class="left_section">
+            <img src="..\static\images\home 1.png" alt="home_logo">
+            <h2>House Price Prediction</h2>
+        </div>
+        <div class="right_section">
+            <a class="page_home_btn" onclick="appearHome()">Home</a>
+            <a class="predict_page_btn" onclick="appearPredict()">Predict Price!</a>
+        </div>
+    </nav> 
+    <div class="page_home">
+        <section class="section first">
+            <img src="../static/images/hero_1_image.png" alt="hero_1" class="hidden">
+            <div class="text_section hidden">
+                <h1>Predicting House Prices with Precision</h1>
+                <p>Leverage the future of real estate with our advanced Linear 
+                    Regression model, powered by Scikit-learn. By analyzing historical 
+                    patterns, we offer precise property value estimates, positioning you 
+                    at the forefront of the market. Make informed property decisions with 
+                    our data-driven insights.
+                </p>
+            </div>
+        </section>
+        <section class="section second">          
+            <div class="text_section hidden">
+                <h1>Using Kaggle to import our Dataset</h1>    
+            </div>
+            <img src="../static/images/kaggle_dataset_image 1.png" alt="hero_2" class="hidden">
+        </section>
+        <section class="section third">  
+            <img src="../static/images/vscode_and_jupyter 1.png" alt="hero_2" class="hidden">        
+            <div class="text_section hidden">
+                <h1>Using Vscode and Jupyter to build the model</h1>    
+            </div>
+            
+        </section>
+        <section class="section fourth">  
+                  
+            <div class="text_section hidden" >
+                <h1>Using Sci-kit to train the model</h1>    
+            </div>
+            <img src="../static/images/scikit_code-image 1.png" alt="hero_2" class="hidden">  
+        </section>
+        <section class="tech_used_container hidden">
+            <h1>Technologies used!</h1>
+            <div class="row row-first">
+                <img src="../static/images/python_white_logo 1.png" alt="">
+                <img src="../static/images/Scikit_learn_logo_small 1.png" alt="">
+                <img src="../static/images/Pandas_logo 1.png" alt="">
+                <img src="../static/images/800px-HTML5_Badge 1.png" alt="">
+                <img src="../static/images/PngItem_1985012 1.png" alt="">
+                <img src="../static/images/java-script 1.png" alt="">
+            </div>
+            <div class="row row-second">
+                <img src="../static/images/Visual_Studio_Code_1.35_icon 1.png" alt="">
+                <img src="../static/images/jupyter_logo 1.png" alt="">
+                <img src="../static/images/flask python 1.png" alt="">
+            </div>
+        </section>
+    </div>
+    <div class="page_predict">
+                 
+        <h1>Provide Your Property Details for a Precise Estimate</h1>
+        <h4>(Due to limited dataset some parameters might be restricted)</h4>
+        <div class="card_body">
+            <form method="post" accept-charset="utf-8">
+                <label for="int_sqft">Enter square feet:</label>
+                <input type="number" name="int_sqft" id="int_sqft" min='500' max="30000" placeholder="Enter values between 500 - 30000"/>
+                <label for="dist_mainroad">Enter distance to the main road(in meters)</label>
+                <input type="number" name="dist_mainroad" id='dist_mainroad' max='300' placeholder="Enter values below 300"/>
+                <label for="n_bedroom">Enter number of bedrooms</label>
+                <input type="number" name="n_bedroom" id='n_bedroom' min='1' max="4" placeholder="Enter values between 1 - 4"/>
+                <label for="n_bathroom">Enter number of bathrooms</label>
+                <input type="number" name="n_bathroom" id='n_bathroom' min="1" max="2" placeholder="Enter 1 or 2"/>
+                <label for="n_room">Enter number of rooms</label>
+                <input type="number" name="n_room" id='n_room' min='2' max='6' placeholder="Enter values between 2 - 6" />
+                <label for="age">Enter age</label>
+                <input type="number" name="age" id="age" max='55' placeholder="Enter values below 55"/>
+                <label for="area">Enter the area</label>
+                <select name="area" id="area">
+                    {%for location in locations%}
+                        <option value="{{location}}">{{location}}</option>
+                    {% endfor %}
+                </select>
+                <label>Enter the sale condition</label>
+                <select name="sale_cond">
+                    {%for sale_cond in sale_conds%}
+                        <option value="{{sale_cond}}">{{sale_cond}}</option>
+                    {% endfor %}
+                </select>
+                <label>Enter parking facility</label>
+                <select name="park_facil">
+                    {%for park_facil in park_facils%}
+                        <option value="{{park_facil}}">{{park_facil}}</option>
+                    {% endfor %}
+                </select>
+                <label>Enter the build type</label>
+                <select name="build_type">
+                    {%for build_type in build_types%}
+                        <option value="{{build_type}}">{{build_type}}</option>
+                    {% endfor %}
+                </select>
+                <label>Enter utility avail</label>
+                <select name="utility_avail">
+                    {%for utility_avail in utility_avails%}
+                        <option value="{{utility_avail}}">{{utility_avail}}</option>
+                    {% endfor %}
+                </select>
+                <label>Enter street type</label>
+                <select name="street">
+                    {%for street in streets%}
+                        <option value="{{street}}">{{street}}</option>
+                    {% endfor %}
+                </select>
+
+                <button class='predict_btn' onclick="send_data()">Predict Price!</button>
+
+            </form>
+        </div> 
+        <div class="price_container">
+            <p>Predicted Price : <span class='predicted_price'>--N/A--</span></p>
+        </div>
+    </div>
+    <footer>
+        <div class="socials_container">
+            <p>Contact us on our social networks :</p>
+            <div class="social_imgs">
+                <a><img src="../static/images/google 1.png"></a>
+                <a><img src="../static/images/facebook 1.png"></a>
+                <a><img src="../static/images/instagram-logo 1.png"></a>
+                <a><img src="../static/images/twitter 1.png"></a>
+                <a><img src="../static/images/github-sign 1.png"></a>
+            </div>
+        </div>
+        <div class="sub_container">
+            <h3>Subscribe</h3>
+            <form action="#" method="post" class="subscribe-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+        <div class="links-section">
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Sales and Refunds</a></li>
+                <li><a href="#">Legal</a></li>
+                <li><a href="#">Site Map</a></li>
+            </ul>
+            <p>© 2021 All Rights Reserved</p>
+        </div>
+    </footer>
+    <script>
+        function numberWithCommas(x) {
+        return x.split('.')[0].length > 3 ? x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3): x.toString();
+        }
+        function form_handler(event){
+            event.preventDefault();
+        }
+        function send_data(){
+            document.querySelector('form').addEventListener('submit',form_handler);
+
+            let fd = new FormData(document.querySelector('form'));
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST','/predict',true);
+            document.querySelector('.predicted_price').innerHTML = "Waiting...";
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState == XMLHttpRequest.DONE){
+                    let number = numberWithCommas(xhr.responseText)        
+                    document.querySelector('.predicted_price').innerHTML = "&#x20B9;" + number;
+                }
+            };
+            
+            xhr.onload = function(){};
+            xhr.send(fd);
+        }
+
+        /*Page transition code*/
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+        let loader = document.querySelector('.loader')
+        let home_pg = document.querySelector('.page_home')
+        let predict_pg = document.querySelector('.page_predict')
+
+        window.addEventListener('scroll', debounce(function() {
+            let y_offset = window.pageYOffset
+            loader.style.top = y_offset+"px"
+        }, 100));
+
+        function appearPredict(){
+            loader.style.left = "0"
+            setTimeout(function(){
+                body.style.backgroundColor = "rgb(48, 48, 48)"
+                loader.style.left="-100%"
+                home_pg.style.display = "none"
+                predict_pg.style.display = "flex"               
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 350);
+            },1000)
+        }
+        function appearHome(){
+            loader.style.left = "0"
+            setTimeout(function(){       
+                body.style.backgroundColor = "#6198ff"       
+                loader.style.left="-100%"
+                home_pg.style.display = "block"
+                predict_pg.style.display = "none"
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 350);
+            },1000)
+        }
+    </script>
+    <script src="../static/reveal.js"></script>
+    <script>
+        const body = document.body
+        let lastScroll = 0
+
+        window.addEventListener('scroll',()=>{
+            const currentScroll = window.pageYOffset
+
+            if (currentScroll <= 0){
+                body.classList.remove('scroll-up')
+            }
+
+            if (currentScroll > lastScroll && !body.classList.contains('scroll-down')){
+                body.classList.remove('scroll-up')
+                body.classList.add('scroll-down')
+            }
+
+            if (currentScroll < lastScroll && body.classList.contains('scroll-down')){
+                body.classList.remove('scroll-down')
+                body.classList.add('scroll-up')
+            }
+            lastScroll = currentScroll
+        })
+    </script>
+</body>
+</html>
